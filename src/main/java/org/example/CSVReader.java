@@ -9,18 +9,21 @@ import java.util.List;
 
 public class CSVReader {
 	public static List<Employee> readEmployeesFromCSV(String file) throws IOException {
-		FileReader fileReader = new FileReader(file);
 		List<Employee> employees = new ArrayList<>();
-		String data= null;
-		try(BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 
+		try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+			String data;
+			bufferedReader.readLine();
 			while((data = bufferedReader.readLine() )!= null){
-
 				String[] dataArr = data.split(",");
-				Employee employee = new Employee(Integer.parseInt(dataArr[0]),dataArr[1],
-					dataArr[2],dataArr[3],Double.parseDouble(dataArr[4]),Double.parseDouble(dataArr[5]));
+					int id = Integer.parseInt(dataArr[0]);//id
+					String name = dataArr[1];//name
+					double salary = Double.parseDouble(dataArr[2]);//salary
+					String position = dataArr[3];//position
+					String department = dataArr[4];//department
+					double hourlyRate = Double.parseDouble(dataArr[5]);//hourly rate
 
-			employees.add(employee);
+			employees.add(new Employee(id, name, salary, position, department, hourlyRate));
 			}
 
 
